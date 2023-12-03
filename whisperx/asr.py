@@ -140,7 +140,7 @@ class FasterWhisperPipeline(Pipeline):
 
     def preprocess(self, audio):
         audio = audio['inputs']
-        model_n_mels = self.model.feat_kwargs.get("feature_size")
+        model_n_mels = None#self.model.feat_kwargs.get("feature_size")
         features = log_mel_spectrogram(
             audio,
             n_mels=model_n_mels if model_n_mels is not None else 80,
