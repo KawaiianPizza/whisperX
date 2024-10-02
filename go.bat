@@ -7,7 +7,7 @@ if "%~1"=="" (
     exit /b 1
 )
 
-set "hf_token_file=hf"
+set "hf_token_file=%~dp0hf"
 
 REM Read the access token from the file
 set /p hf_token=<"%hf_token_file%"
@@ -21,7 +21,10 @@ set "scriptdir=%~dp0"
 REM Change the current directory to the script directory
 cd /d "!scriptdir!"
 echo "!scriptdir!out"   !filename!
-
-whisperx "!filename!" --model large-v2 --align_model WAV2VEC2_ASR_LARGE_LV60K_960H --batch_size 6 --diarize --hf_token !hf_token! --output_format vtt --language en --print_progress True --output_dir out
+if exist "!scriptdir!out" (
+echo "out" exists, skipping whisper
+) else (
+whisperx "!filename!" --model large-v2 --batch_size 6 --min_speakers 1 --length_penalty 1.2 --diarize --hf_token !hf_token! --output_format vtt --language en --print_progress True --output_dir out
+)
 py split.py "!scriptdir!out" "!filename!"
 pause

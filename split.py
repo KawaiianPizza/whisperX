@@ -159,14 +159,14 @@ def main():
     curEndTime = ""
     test = ""
     for start_time, end_time, speaker_tag in matches:
-        if curSpeaker == speaker_tag:
-            curEndTime = end_time
-        else:
-            if curSpeaker != "":
-                test += f"\n{curStartTime} --> {curEndTime}\n[{curSpeaker}]\n"
-            curSpeaker = speaker_tag
-            curStartTime = start_time
-            curEndTime = end_time
+      if curSpeaker == speaker_tag:
+          curEndTime = end_time
+      else:
+          if curSpeaker != "":
+              test += f"\n{curStartTime} --> {curEndTime}\n[{curSpeaker}]\n"
+          curSpeaker = speaker_tag
+          curStartTime = start_time
+          curEndTime = end_time
     test += f"\n{curStartTime} --> {curEndTime}\n[{curSpeaker}]\n"
 
     matches = pattern.findall(test)

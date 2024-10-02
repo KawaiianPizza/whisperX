@@ -4,3 +4,4 @@ whisperx.egg-info/
 *.aac
 *.mp3
 hf
+out/
